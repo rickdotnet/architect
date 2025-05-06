@@ -1,5 +1,6 @@
 using Architect.Cli.Services;
 using ConsoleAppFramework;
+using Library.Conf;
 
 namespace Architect.Cli;
 
@@ -8,14 +9,21 @@ namespace Architect.Cli;
 /// </summary>
 public class Application
 {
+    private readonly AppConfig config;
+
+    public Application(AppConfig config)
+    {
+        this.config = config;
+    }
     /// <summary>
     /// Caution.
     /// </summary>
     /// <param name="yolo">Chad mode</param>
     /// <param name="user">User mode</param>
-    [Command(" ")]
+    [Command("")]
     public async Task Run(bool yolo = false, bool user = false)
     {
+        Console.WriteLine($"alias - {config.BashAlias}");
         if (yolo)
         {
             Console.WriteLine("YOLO!!");

@@ -6,6 +6,7 @@ public class YoloInstaller
 {
     public static async Task UserInstall()
     {
+        return;
         await Command.RunAsync("bash", "-c \"git clone https://aur.archlinux.org/paru.git /tmp/paru && cd /tmp/paru && makepkg -si --noconfirm\"");
         await Command.RunAsync("paru", "-S  grimblast-git oh-my-posh-bin --noconfirm");
 
@@ -30,6 +31,7 @@ public class YoloInstaller
     public static async Task SudoInstall()
     {
         Console.WriteLine("Starting YOLO install");
+        return;
 
         await Command.RunAsync("pacman", "-S --needed base-devel --noconfirm");
         await Command.RunAsync("pacman", "-S libnotify hyprpicker wl-clipboard grim slurp rofi-wayland noto-fonts-emoji ttf-jetbrains-mono-nerd waybar --noconfirm");
