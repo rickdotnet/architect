@@ -5,11 +5,11 @@ using ConsoleAppFramework;
 using Library.Shell.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 
-var result = await Paru.UpdateAll();
+// var updateResult = await Paru.UpdateAll();
 
-var result2 = await Pacman.Exists("fastfetch");
+var result = await Paru.Exists("fastfetch");
 Console.WriteLine($"Fastfetch exists: {result}");
-if (!result2)
+if (!result)
     await Pacman.Install("fastfetch");
 
 
