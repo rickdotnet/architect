@@ -2,20 +2,27 @@
 using Architect.Cli.Commands;
 using Microsoft.Extensions.Hosting;
 using ConsoleAppFramework;
-using Library.Shell;
+using Library.Shell.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using Serilog.Events;
 
-var result = ShellCommand.Run("echo", "\"Hello World\"");
-var sudoResult = ShellCommand.Run("sudo", "-v"); // cache the password
+var result = await Paru.UpdateAll();
 
-var command = ShellCommand.Build("echo", "\"Hello World\"")
-    .WithOutputSink(Console.WriteLine)
-    .WithSudo() // password will be cached
-    .Create();
+var result2 = await Pacman.Exists("fastfetch");
+Console.WriteLine($"Fastfetch exists: {result}");
+if (!result2)
+    await Pacman.Install("fastfetch");
 
-var result2 = await command.ExecuteAsync();
+
+//var result = ShellCommand.Run("echo", "\"Hello World\"");
+//var result2 = ShellCommand.Run("paru", "-Syu --noconfirm");
+// var sudoResult = ShellCommand.Run("sudo", "-v"); // cache the password
+//
+// var command = ShellCommand.Build("echo", "\"Hello World\"")
+//     .WithOutputSink(Console.WriteLine)
+//     .WithSudo() // password will be cached
+//     .Create();
+//
+// var result2 = await command.ExecuteAsync();
 
 return;
 

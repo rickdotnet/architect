@@ -99,13 +99,14 @@ public class ShellCommandBuilder
         return this;
     }
 
-    public ShellCommandBuilder WithOutputSink(Action<string>? stdOutSink = null)
+    public ShellCommandBuilder WithOutputSink(Action<string>? stdOutSink = null, bool includeStdErr = false)
     {
         this.stdOutSink = stdOutSink;
-        this.stdErrSink = stdOutSink;
+        if (includeStdErr)
+            this.stdErrSink = stdOutSink;
         return this;
     }
-
+    
     public ShellCommand Create()
     {
         if (string.IsNullOrEmpty(command))
@@ -116,7 +117,7 @@ public class ShellCommandBuilder
             arguments,
             sudoMode,
             passwordProvider,
-            new Dictionary<string, string>(environment), // Defensive copy
+            new Dictionary<string, string>(environment), 
             workingDirectory,
             timeout,
             dryRun,
